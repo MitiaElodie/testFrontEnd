@@ -3,7 +3,7 @@ import DetailEvent from '../views/DetailEvent.vue'
 
 const routes = [
   {
-    path: '/event/:name',
+    path: '/event/:id',
     name: 'Event',
     component: DetailEvent
   },

@@ -106,6 +106,19 @@ export default createStore({
   mutations: {
   },
   actions: {
+    getEvent(context, index) {
+      if (typeof(index) !== "number") {
+          throw "Invalid index";
+      }
+  
+      let event = context.state.events.find(x => x.id === index);
+  
+      if (event) {
+          return event;
+      } else {
+          throw "Event not found"
+      }
+  }
   },
   modules: {
   }

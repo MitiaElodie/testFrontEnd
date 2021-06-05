@@ -1,5 +1,7 @@
 <template>
     <comment></comment>
+    <comment></comment>
+    <comment></comment>
 </template>
 
 <script>
