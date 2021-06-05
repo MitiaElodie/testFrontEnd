@@ -1,17 +1,22 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div class="container">
+    <div id="nav">
+      <router-link v-for="event in events" :key="event.id" :to="getLink(event.id)">{{ event.title}}</router-link>
+    </div>
+    <router-view/>
   </div>
-  <router-view/>
 </template>
 
 <style lang="scss">
+.container{
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
 
@@ -21,10 +26,35 @@
   a {
     font-weight: bold;
     color: #2c3e50;
+    display: block;
 
     &.router-link-exact-active {
       color: #42b983;
     }
   }
 }
+
+@media (max-width: 600px) {
+  .container {
+    flex-direction: column;
+  }
+}
 </style>
+
+<script>
+import { mapState } from 'vuex'
+
+export default{
+  computed: {
+    ...mapState(['events']),
+    
+  },
+  methods: {
+    getLink(id){
+      console.log("/event/"+ id);
+      return "/event/"+ id;
+    }
+  }
+}
+
+</script>
