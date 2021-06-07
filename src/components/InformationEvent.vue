@@ -59,8 +59,14 @@
 
 <style>
     @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";
+    .information-event-form, .information-event-form-date-time{
+        margin: 20px;
+
+    }
+    
     .information-event-container{
         width: 500px;
+        font-size: 0.9em;;
     }
 
     label{

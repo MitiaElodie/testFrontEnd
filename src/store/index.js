@@ -129,8 +129,13 @@ export default createStore({
     },
 
     getTime: (state) => (date) => {
-        state.comments.find(x => x.id === 47); // for using the state so there won't be any error
         return date.split('T')[1].split('Z')[0]; // pour enlever le T entre la date et l'heure et le Z a la fin de l'heure
+    },
+
+    getTimeFormatted: (state) => (date) => {
+        let split = this.getTime(date).split(':');
+        console.log(split);
+        return `${ split[0] }h${ split[1] }`;
     }
   },
   mutations: {

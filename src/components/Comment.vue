@@ -10,7 +10,7 @@
             </div>
         </div>
         
-        <span class="comment-date">{{ comment.creationDate }}</span>
+        <span class="comment-date">{{ date }} {{ time }}</span>
     </div>
 </template>
 
@@ -41,6 +41,14 @@
         computed: {
             comment(){
                 return this.$store.getters.getComment(this.idComment);
+            },
+
+            date(){
+                return this.$store.getters.getDate(this.comment.creationDate);
+            },
+
+            time(){
+                return this.$store.getters.getTime(this.comment.creationDate);
             },
         }
     }

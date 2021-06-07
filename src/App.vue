@@ -25,6 +25,7 @@
 
 #nav {
   padding: 30px;
+  min-width: 300px;
 
   a {
     font-weight: bold;
@@ -51,7 +52,7 @@
 }
 
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .container {
     flex-direction: column;
   }
