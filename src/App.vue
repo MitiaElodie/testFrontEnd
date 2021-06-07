@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div id="nav">
-      <h1>Les évènements</h1>
+      <h2>Les évènements</h2>
       <div class="list-event">
         <router-link v-for="event in events" :key="event.id" :to="getLink(event.id)">{{ event.title}}</router-link>
       </div>

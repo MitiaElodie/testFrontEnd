@@ -139,21 +139,25 @@ export default createStore({
     }
   },
   mutations: {
-        MODIFY_EVENT(state, {idEvent , newEvent}){
-            idEvent = Number(idEvent);
-          let event = state.events.find(x => x.id === idEvent);
-          if(event != null){
-            event.title = newEvent.title;
-            console.log(event.title);
-            event.description = newEvent.description;
-            event.createdBy = newEvent.createdBy;
-            event.involvedEmployeeId = newEvent.involvedEmployeeId;
-            event.statusName = newEvent.statusName;
-            event.title = newEvent.title;
-            event.Témoins = newEvent.Témoins; // on modifie tous sauf la date
-          }
-          
-      }
+    MODIFY_EVENT(state, {idEvent , newEvent}){
+        idEvent = Number(idEvent);
+        let event = state.events.find(x => x.id === idEvent);
+        if(event != null){
+        event.title = newEvent.title;
+        event.description = newEvent.description;
+        event.createdBy = newEvent.createdBy;
+        event.involvedEmployeeId = newEvent.involvedEmployeeId;
+        event.statusName = newEvent.statusName;
+        event.title = newEvent.title;
+        event.Témoins = newEvent.Témoins; // on modifie tous sauf la date
+        }
+    },
+
+    REMOVE_COMMENT(state, idComment){
+        let index = state.comments.indexOf(state.comments.find(x => x.id === idComment)); // on cherche la position du commentaire a supprimer
+        state.comments.splice(index, 1);
+    }
+
   },
   actions: {
     

@@ -1,5 +1,6 @@
 <template>
     <div class="comment-content">
+        <span class="comment-suppress" @click="removeComment"><i class="fa fa-trash"></i></span>
         <div class="comment-information">
             <div class="comment-image">
                 <img src="/images/default.png" alt="Default image" />
@@ -15,7 +16,7 @@
 </template>
 
 <style>
-
+@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";
     .comment-content{
         border: 1px solid;
         width: 300px;
@@ -40,6 +41,12 @@
         font-size: 0.8em;
         position: absolute;
         bottom: 5px;
+        right: 5px;
+    }
+
+    .comment-suppress{
+        position: absolute;
+        top: 5px;
         right: 5px;
     }
     
@@ -71,6 +78,11 @@
             time(){
                 return this.$store.getters.getTime(this.comment.creationDate);
             },
+        },
+        methods:{
+            removeComment(){
+                this.$store.commit('REMOVE_COMMENT', this.idComment);
+            }
         }
     }
 </script>
