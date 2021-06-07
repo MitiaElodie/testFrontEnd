@@ -5,7 +5,7 @@
         :idEvent="Number($route.params.id)"/>
     </div>
     <div class="detail-event-comment">
-        <comments></comments>
+        <comments :idEvent="Number($route.params.id)"></comments>
     </div>
   </div>
 </template>

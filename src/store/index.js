@@ -3,16 +3,16 @@ import { createStore } from 'vuex'
 export default createStore({
   state: {
     comments: [
-      {creationDate: '2016-04-22T06:23:00Z', author: 'Jean Valjean', content: "Océane est arrivée il y a seulement 3 mois"},
-      {creationDate: '2007-03-20T07:34:00Z', author: 'Océane Quessy', content: "Je n'étais pas formé à ca"},
-      {creationDate: '2012-08-27T08:54:00Z', author: 'Martin Duranseau', content: "Le marteau n'était pas dans la malette"},
-      {creationDate: '2009-04-22T01:12:00Z', author: 'Martin Duranseau', content: "La procédure était très ancienne"},
-      {creationDate: '2016-12-09T11:34:00Z', author: 'Adrien Lacharité', content: "L'alarme est défaillante"},
-      {creationDate: '2018-01-21T06:59:00Z', author: 'Belisarda Mazuret', content: "Le sol est abimé"},
-      {creationDate: '2012-09-27T08:54:00Z', author: 'Alex Duranseau', content: "Le marteau n'était pas présent"},
-      {creationDate: '2009-05-22T01:12:00Z', author: 'Lola Langin', content: "Le sceau était brisé"},
-      {creationDate: '2016-02-09T11:34:00Z', author: 'Zoé Lacharité', content: "L'alarme est trop forte"},
-      {creationDate: '2018-03-21T06:59:00Z', author: 'Robert Mazuret', content: "La machine est trop lourde"}
+      {id: 1, idEvent: 47, creationDate: '2016-04-22T06:23:00Z', author: 'Jean Valjean', content: "Océane est arrivée il y a seulement 3 mois"},
+      {id: 2, idEvent: 47, creationDate: '2007-03-20T07:34:00Z', author: 'Océane Quessy', content: "Je n'étais pas formé à ca"},
+      {id: 3, idEvent: 81, creationDate: '2012-08-27T08:54:00Z', author: 'Martin Duranseau', content: "Le marteau n'était pas dans la malette"},
+      {id: 4, idEvent: 81, creationDate: '2009-04-22T01:12:00Z', author: 'Martin Duranseau', content: "La procédure était très ancienne"},
+      {id: 5, idEvent: 81, creationDate: '2016-12-09T11:34:00Z', author: 'Adrien Lacharité', content: "L'alarme est défaillante"},
+      {id: 6, idEvent: 81, creationDate: '2018-01-21T06:59:00Z', author: 'Belisarda Mazuret', content: "Le sol est abimé"},
+      {id: 7, idEvent: 81, creationDate: '2012-09-27T08:54:00Z', author: 'Alex Duranseau', content: "Le marteau n'était pas présent"},
+      {id: 8, idEvent: 81, creationDate: '2009-05-22T01:12:00Z', author: 'Lola Langin', content: "Le sceau était brisé"},
+      {id: 9, idEvent: 81, creationDate: '2016-02-09T11:34:00Z', author: 'Zoé Lacharité', content: "L'alarme est trop forte"},
+      {id: 10, idEvent: 81, creationDate: '2018-03-21T06:59:00Z', author: 'Robert Mazuret', content: "La machine est trop lourde"}
     ],
     events: [
       {
@@ -100,25 +100,43 @@ export default createStore({
           "firstname": "Zoé",
           "lastname": "Lalima"
       }
+    ],
+
+    status: [
+        "Open",
+        "Closed",
+        "InProgress"
     ]
   
+  },
+  getters: {
+    getEvent: (state) => (index) => {
+        return state.events.find(x => x.id === index);
+    },
+
+    getComments: (state) => (indexEvent) => {
+        return state.comments.filter(x => x.idEvent === indexEvent);
+        
+    },
+
+    getComment: (state) => (idComment) => {
+        return state.comments.find(x => x.id === idComment);
+    },
+
+    getDate: (state) => (date) => {
+        state.comments.find(x => x.id === 47);
+        return date.split('T')[0];
+    },
+
+    getTime: (state) => (date) => {
+        state.comments.find(x => x.id === 47); // for using the state so there won't be any error
+        return date.split('T')[1].split('Z')[0];
+    }
   },
   mutations: {
   },
   actions: {
-    getEvent(context, index) {
-      if (typeof(index) !== "number") {
-          throw "Invalid index";
-      }
-  
-      let event = context.state.events.find(x => x.id === index);
-  
-      if (event) {
-          return event;
-      } else {
-          throw "Event not found"
-      }
-  }
+    
   },
   modules: {
   }
