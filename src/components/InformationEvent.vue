@@ -1,18 +1,18 @@
 <template>
     <div class="information-event-container">
         <div class="event-title">
-            <h2>{{ event.title }}</h2>
+            <h2>{{ modifiableEvent.title }}</h2>
             <p class="information-event-info">Cree le {{ date }}  à {{ time }} par {{ event.createdBy }}</p>
         </div>
         <div class="event-element">
             <div class="information-event-form">
                 <label for="title">Titre</label>
-                <input type="text" :value="event.title" id="title" name="title" />
+                <input type="text" v-model="modifiableEvent.title" id="title" name="title" />
             </div>
             
             <div class="information-event-form">
                 <label for="description">Description</label>
-                <textarea type="text" :value="event.description" name="description" id="description" />
+                <textarea type="text" v-model="modifiableEvent.description" name="description" id="description" />
             </div>
 
             <div class="information-event-form-date-time">
@@ -30,14 +30,14 @@
 
             <div class="information-event-form">
                 <label for="status">Nom du statut</label>
-                <select name="status" id="status" v-model="event.statusName">
+                <select name="status" id="status" v-model="modifiableEvent.statusName">
                     <option v-for="item in status" :key="item" :value="item">{{ item }}</option>
                 </select>
             </div>
 
             <div class="information-event-form">
                 <label for="employee">Employé impliqué</label>
-                <select name="employee" id="employee" v-model="event.involvedEmployeeId">
+                <select name="employee" id="employee" v-model="modifiableEvent.involvedEmployeeId">
                     <option v-for="item in employees" :key="item.id" :value="item.id">{{ getFullname(item)}}</option>
                 </select>
             </div>
@@ -45,13 +45,9 @@
             <div class="information-event-form">
                 <label for="witness">Temoin</label>
                 <ul>
-                    <li v-for="item in listWitness" :key="item">{{ item }} <span class="delete-witness" v-on:click="deleteWitness">Effacer</span></li>
+                    <li v-for="item in modifiableEvent.Témoins" :key="item">{{ item }} <i class="fa fa-close" v-on:click="deleteWitness"></i></li>
                 </ul>
                 <input type="text" id="witness" name="witness" v-on:keyup.enter="addWitness" v-model="witnessName">
-            </div>
-
-            <div class="information-event-form">
-                <input type="submit" value="Modifier" @click="modify"/>
             </div>
 
         </div>
@@ -59,7 +55,7 @@
 </template>
 
 <style>
-
+    @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";
     .information-event-container{
         width: 500px;
     }
@@ -74,6 +70,16 @@
 
     .witness ul{
         text-decoration: none;
+    }
+
+    .information-event-form ul{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .information-event-form li{
+        display: inline;
     }
 
 
@@ -92,9 +98,11 @@
                 witnessName: "",
                 listWitness: [],
                 actualId: this.idEvent,
+                modifiableEvent: null,
             }
         },
         beforeMount(){
+            this.modifiableEvent = this.event;
             this.event.Témoins.forEach(element => {
                     this.listWitness.push(element);
                 });
@@ -103,6 +111,7 @@
             '$route.params.id'(to, from){
                 console.log(from);
                 this.actualId = to;
+                this.modifiableEvent = this.event;
                 this.listWitness = [],
                 this.event.Témoins.forEach(element => {
                     this.listWitness.push(element);
@@ -131,13 +140,14 @@
 
             addWitness(){
                 console.log(this.witnessName);
-                this.listWitness.push(this.witnessName);
+                this.modifiableEvent.push(this.witnessName);
                 this.witnessName = ""; // on reinitialise le nom du temoin
             },
 
             deleteWitness(){},
 
             modify(){
+                this.$store.commit('MODIFY_EVENT', this.actualId, this.modifiableEvent);
             }
         }
     }

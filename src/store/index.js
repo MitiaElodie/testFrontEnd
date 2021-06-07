@@ -134,8 +134,9 @@ export default createStore({
     }
   },
   mutations: {
-        SET_EVENT_TITLE(state, {idEvent , title}){
-          state.events.find(x => x.id === idEvent).title = title;
+        MODIFY_EVENT(state, {idEvent , newEvent}){
+          let event = state.events.find(x => x.id === idEvent);
+          event.title = newEvent.title;
       }
   },
   actions: {
