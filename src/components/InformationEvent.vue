@@ -45,13 +45,13 @@
             <div class="information-event-form">
                 <label for="witness">Temoin</label>
                 <ul>
-                    <li v-for="item in event.Témoins" :key="item">{{ item }} <span class="delete-witness" v-on:click="deleteWitness">Effacer</span></li>
+                    <li v-for="item in listWitness" :key="item">{{ item }} <span class="delete-witness" v-on:click="deleteWitness">Effacer</span></li>
                 </ul>
-                <input type="text" id="witness" name="witness" v-on:keyup.enter="addWitness">
+                <input type="text" id="witness" name="witness" v-on:keyup.enter="addWitness" v-model="witnessName">
             </div>
 
             <div class="information-event-form">
-                <input type="submit" value="Modifier"/>
+                <input type="submit" value="Modifier" @click="modify"/>
             </div>
 
         </div>
@@ -87,9 +87,31 @@
         props: {
             idEvent: Number,
         },
+        data(){
+            return{
+                witnessName: "",
+                listWitness: [],
+                actualId: this.idEvent,
+            }
+        },
+        beforeMount(){
+            this.event.Témoins.forEach(element => {
+                    this.listWitness.push(element);
+                });
+        },
+        watch: {
+            '$route.params.id'(to, from){
+                console.log(from);
+                this.actualId = to;
+                this.listWitness = [],
+                this.event.Témoins.forEach(element => {
+                    this.listWitness.push(element);
+                });
+            }
+        },
         computed: {
             event() {
-                return this.$store.getters.getEvent(this.idEvent);
+                return this.$store.getters.getEvent(Number(this.actualId));
             },
             date() {
                 return this.$store.getters.getDate(this.event.creationDate);
@@ -108,10 +130,15 @@
             },
 
             addWitness(){
-
+                console.log(this.witnessName);
+                this.listWitness.push(this.witnessName);
+                this.witnessName = ""; // on reinitialise le nom du temoin
             },
 
-            deleteWitness(){}
+            deleteWitness(){},
+
+            modify(){
+            }
         }
     }
 

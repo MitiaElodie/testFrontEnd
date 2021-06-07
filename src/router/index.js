@@ -5,7 +5,10 @@ const routes = [
   {
     path: '/event/:id',
     name: 'Event',
-    component: DetailEvent
+    component: DetailEvent,
+    meta:{
+      reload: true,
+    }
   },
 ]
 
