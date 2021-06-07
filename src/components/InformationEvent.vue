@@ -51,7 +51,7 @@
             </div>
 
             <div class="information-event-form">
-                <input type="submit" value="Modifier" @click="modify">
+                <input type="submit" class="submit-button" value="Modifier" @click="modify">
             </div>
         </div>
     </div>
@@ -65,7 +65,7 @@
     }
     
     .information-event-container{
-        width: 500px;
+        width: 450px;
         font-size: 0.9em;;
     }
 
@@ -77,20 +77,27 @@
         display: flex;
     }
 
-    .witness ul{
-        text-decoration: none;
+    .information-event-time{
+        margin-left: 30px;
     }
 
     .information-event-form ul{
         list-style: none;
-        margin: 0;
+        margin-top: 5px;;
         padding: 0;
     }
 
     .information-event-form li{
         display: inline;
+        background-color: #c6ecd9;
+        margin: 5px;
+        padding: 5px;
+        border-radius: 5px;
     }
 
+    .submit-button{
+        padding: 10px;
+    }
 
     
 </style>

@@ -18,9 +18,13 @@
 
     .comment-content{
         border: 1px solid;
-        width: 350px;
+        width: 300px;
+        min-width: 200px;
         margin: 10px;
         padding: 10px;
+        position: relative;
+        background-color: white;
+        box-shadow: 10px;
     }
 
     .comment-information{
@@ -29,6 +33,23 @@
 
     .comment-image img{
         width: 60px;
+        height: 60px;
+    }
+
+    .comment-date{
+        font-size: 0.8em;
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+    }
+    
+    .comment-detail p{
+        margin:0;
+    }
+
+    .comment-name{
+        color: #737373;
+        padding-bottom: 10px;
     }
 
 </style>

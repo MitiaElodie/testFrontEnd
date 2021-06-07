@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div id="nav">
-      <h1>Les evenements</h1>
+      <h1>Les évènements</h1>
       <div class="list-event">
         <router-link v-for="event in events" :key="event.id" :to="getLink(event.id)">{{ event.title}}</router-link>
       </div>
@@ -18,41 +18,40 @@
 }
 * {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
 }
 
 #nav {
   padding: 30px;
   min-width: 300px;
+  max-width: 400px;
 
   a {
     font-weight: bold;
-    color: #2c3e50;
+    color: black;
     display: block;
     padding: 20px;
     margin: 10px;
     text-decoration: None;
     border: 1px solid;
+    background-color: white;
 
 
     &.router-link-exact-active {
-      color: #42b983;
+      border-color: #42b983;
       transform: scale(1.1);
     }
   }
 }
 
 .list-event{
-  border: 1px solid;
+  background-color: #e6e6e6;
   padding: 25px;
   max-height: 500px;
   overflow: auto;
 }
 
 
-@media (max-width: 700px) {
+@media (max-width: 800px) {
   .container {
     flex-direction: column;
   }

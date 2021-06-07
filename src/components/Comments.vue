@@ -7,8 +7,12 @@
 
 <style>
     .comment-container{
-        width: 200px;
-        font-size: 0.9em;
+        padding: 20px;
+        font-size: 0.9em;      
+        background-color: #e6e6e6;
+        max-height: 600px;
+        overflow: auto;
+        width: 400px;
     }
 </style>
 
