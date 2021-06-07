@@ -45,11 +45,14 @@
             <div class="information-event-form">
                 <label for="witness">Temoin</label>
                 <ul>
-                    <li v-for="item in modifiableEvent.Témoins" :key="item">{{ item }} <i class="fa fa-close" v-on:click="deleteWitness"></i></li>
+                    <li v-for="item in modifiableEvent.Témoins" :key="item">{{ item }} <i class="fa fa-close" v-on:click="deleteWitness(item)"></i></li>
                 </ul>
                 <input type="text" id="witness" name="witness" v-on:keyup.enter="addWitness" v-model="witnessName">
             </div>
 
+            <div class="information-event-form">
+                <input type="submit" value="Modifier" @click="modify">
+            </div>
         </div>
     </div>
 </template>
@@ -102,16 +105,15 @@
             }
         },
         beforeMount(){
-            this.modifiableEvent = this.event;
+            this.modifiableEvent = JSON.parse(JSON.stringify(this.event)); // pour enlever le lien entre this.event et this.modifiableEvents
             this.event.Témoins.forEach(element => {
                     this.listWitness.push(element);
                 });
         },
         watch: {
             '$route.params.id'(to, from){
-                console.log(from);
                 this.actualId = to;
-                this.modifiableEvent = this.event;
+                this.modifiableEvent = JSON.parse(JSON.stringify(this.event));
                 this.listWitness = [],
                 this.event.Témoins.forEach(element => {
                     this.listWitness.push(element);
@@ -139,15 +141,19 @@
             },
 
             addWitness(){
-                console.log(this.witnessName);
-                this.modifiableEvent.push(this.witnessName);
+                this.modifiableEvent.Témoins.push(this.witnessName);
                 this.witnessName = ""; // on reinitialise le nom du temoin
             },
 
-            deleteWitness(){},
+            deleteWitness(item){
+                let index = this.modifiableEvent.Témoins.indexOf(item);
+                this.modifiableEvent.Témoins.splice(index, 1);
+            },
 
             modify(){
-                this.$store.commit('MODIFY_EVENT', this.actualId, this.modifiableEvent);
+                console.log("PUT route/event/"+ this.actualId + " et envoyer les données dans this.modifiableEvent");
+                let payload = { "idEvent" : this.actualId, "newEvent" : this.modifiableEvent}
+                this.$store.commit('MODIFY_EVENT', payload);
             }
         }
     }

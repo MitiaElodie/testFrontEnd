@@ -130,13 +130,24 @@ export default createStore({
 
     getTime: (state) => (date) => {
         state.comments.find(x => x.id === 47); // for using the state so there won't be any error
-        return date.split('T')[1].split('Z')[0];
+        return date.split('T')[1].split('Z')[0]; // pour enlever le T entre la date et l'heure et le Z a la fin de l'heure
     }
   },
   mutations: {
         MODIFY_EVENT(state, {idEvent , newEvent}){
+            idEvent = Number(idEvent);
           let event = state.events.find(x => x.id === idEvent);
-          event.title = newEvent.title;
+          if(event != null){
+            event.title = newEvent.title;
+            console.log(event.title);
+            event.description = newEvent.description;
+            event.createdBy = newEvent.createdBy;
+            event.involvedEmployeeId = newEvent.involvedEmployeeId;
+            event.statusName = newEvent.statusName;
+            event.title = newEvent.title;
+            event.Témoins = newEvent.Témoins; // on modifie tous sauf la date
+          }
+          
       }
   },
   actions: {
